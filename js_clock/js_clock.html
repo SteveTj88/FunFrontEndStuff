@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clock Challenge</title>
+
+	<style>
+		body {
+			background-color: lightgray;
+		}
+
+		.clock {
+			position: relative;
+			border: 2px solid #000;
+			border-radius: 50%;
+			height: 300px;
+			width: 300px;
+			margin: 50px auto;
+		}
+
+		#second-tick, #minute-tick, #hour-tick {
+			position: absolute;
+			top: 150px;
+			left: 150px;
+			transform-origin: bottom center;
+			border-radius: 10px;
+		}
+
+		#second-tick {
+			height: 120px;
+			width: 3px;
+			background-color: green;
+		}
+
+		#minute-tick {
+			height: 100px;
+			width: 5px;
+			background-color: blue;
+		}
+
+		#hour-tick {
+			height: 80px;
+			width: 7px;
+			background-color: red;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="clock">
+			<div id="second-tick">
+			</div>
+			<div id="minute-tick">
+			</div>
+			<div id="hour-tick">
+			</div>
+		</div>
+	</div>
+
+</body>
+
+	<script>
+		// 1 minute 60 times second ticks => 1 tick = 360deg/60 times = 6 degrees
+		// 1 hour 60 times minute ticks => 1 tick = 360deg/60 times = 6 degrees
+		// 1 day 24 times hour ticks => 1 tick = 360deg/12 times = 30 degrees
+
+		function dateTimeSet() {
+			let currentDate = new Date;
+			let seconds = currentDate.getSeconds();
+			let minutes = currentDate.getMinutes();
+			let hours = currentDate.getHours();
+
+			let secondTick = document.getElementById("second-tick");
+			let minuteTick = document.getElementById("minute-tick");
+			let hourTick = document.getElementById("hour-tick");
+
+			console.log(secondTick.style.transform)
+			console.log(minuteTick.style.transform)
+			console.log(hourTick.style.transform)
+
+			secondTick.style.transform = "translate(0,-120px) rotate(" + seconds * 6 + "deg)";
+			minuteTick.style.transform = "translate(0,-100px) rotate(" + minutes * 6 + "deg)";
+			hourTick.style.transform = "translate(0,-80px) rotate(" + hours * 30 + "deg)";
+		}
+
+		setInterval(function() {
+			dateTimeSet();
+		}, 100)
+
+	</script>
+</html>
