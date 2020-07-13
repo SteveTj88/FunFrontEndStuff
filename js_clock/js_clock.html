@@ -89,7 +89,7 @@
 
 			secondTick.style.transform = "translate(0,-120px) rotate(" + seconds * 6 + "deg)";
 			minuteTick.style.transform = "translate(0,-100px) rotate(" + minutes * 6 + "deg)";
-			hourTick.style.transform = "translate(0,-80px) rotate(" + hours * 30 + "deg)";
+			hourTick.style.transform = "translate(0,-80px) rotate(" + (((hours > 12 ? hours-12 : hours) * 30) + (minutes * 0.5)) + "deg)";
 		}
 
 		setInterval(function() {
