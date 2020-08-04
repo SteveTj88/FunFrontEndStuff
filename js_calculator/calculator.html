@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Calculator
+	</title>
+
+	<style>
+		.main {
+			width: 400px;
+			height: 400px;
+			border: 2px solid black;
+			border-radius: 2px;
+			margin: 0 auto;
+		}
+
+		.container {
+			padding: 20px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.calculator-screen-container input {
+			width: 100%;
+			text-align: right;
+			margin-bottom: 20px;
+		}
+
+		.calculator-operator-container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.num-misc-container {
+			display: flex;
+		}
+
+		.misc-container {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.operand-container, .num-sub-con, .misc {
+			padding-bottom: 20px;
+		}
+
+		button {
+			padding: 10px;
+			text-align: center;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="main">
+		<div class="container">
+			<div class="calculator-screen-container">
+				<input type="text" id="calculator-screen" placeholder="0">
+			</div>
+			<div class="calculator-operator-container">
+				<div class="operand-container">
+					<button class="operand plus">+</button>
+					<button class="operand minus">-</button>
+					<button class="operand times">&times;</button>
+					<button class="operand divide">&divide;</button>
+				</div>
+				<div class="num-misc-container">
+					<div class="number-container">
+						<div class="num-sub-con">
+							<button class="number">1</button>
+							<button class="number">2</button>
+							<button class="number">3</button>
+						</div>
+						<div class="num-sub-con">
+							<button class="number">4</button>
+							<button class="number">5</button>
+							<button class="number">6</button>
+						</div>
+						<div class="num-sub-con">
+							<button class="number">7</button>
+							<button class="number">8</button>
+							<button class="number">9</button>
+						</div>
+					</div>
+					<div class="misc-container">
+						<div class="misc">
+							<button id="reset">AC</button>
+						</div>
+						<div class="misc">
+							<button id="equal">=</button>
+						</div>
+						<div class="misc">
+							<button class="number">0</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		let inputScreen = document.getElementById("calculator-screen");
+		let numberButtons = document.getElementsByClassName("number"); // this HTML collection
+		let operandButtons = document.getElementsByClassName("operand");
+		let tempNumber = "";
+		let result = "";
+		let operandClicked = false;
+		let operandChosen = "";
+		let resetButton = document.getElementById("reset");
+		let equalButton = document.getElementById("equal");
+
+		resetButton.addEventListener('click', function(el) {
+			inputScreen.value = "";
+			tempNumber = "";
+			operandClicked = false;
+			operandChosen = "";
+		})
+
+		equalButton.addEventListener('click', function(el) {
+			if (tempNumber) {
+				let calculatingString = inputScreen.value+operandChosen+tempNumber;
+				inputScreen.value = eval(calculatingString);
+			}
+		})
+
+		Array.from(numberButtons).forEach(function(numberElement) {
+			let numberValue = numberElement.textContent;
+			numberElement.addEventListener('click', function(el) {
+				if (operandClicked) {
+					operandClicked = false;
+					tempNumber = inputScreen.value;
+					inputScreen.value = "";
+					inputScreen.value = numberValue
+				} else
+					inputScreen.value += numberValue;
+			})
+		});
+
+		Array.from(operandButtons).forEach(function(operandElement) {
+			let operandValue = operandElement.textContent;
+
+			operandElement.addEventListener('click', function(el) {
+				console.log(operandValue)
+				tempNumber = inputScreen.value;
+
+				switch (operandValue) {
+					case "+":
+						operandChosen = "+";
+					break;
+					case "-":
+						operandChosen = "-";
+					break;
+					case "÷":
+						operandChosen = "/";
+					break;
+					case "×":
+						operandChosen = "*"
+					break;
+				}
+
+				operandClicked = true;
+				
+			})
+		})
+
+
+		
+	</script>
+
+</body>
+</html>
